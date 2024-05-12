@@ -1,0 +1,455 @@
+.flex {
+  display: flex;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #343434;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #4a4a4a;
+  border-radius: 100px;
+  /* border: 0px solid #ffffff; */
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6e6e6e;
+  /* border: 0px solid #ffffff; */
+}
+
+body {
+  --commands-bar-height: 4.608vh;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 0.8em;
+}
+
+body {
+  --commandsBar: rgb(85, 85, 85);
+  --commandsBar-active: rgba(0, 0, 0, 0.2);
+  --frameController: rgb(53, 53, 53);
+  color: white;
+  background-color: #0e0e0e;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+#root > .lower.row {
+  display: grid;
+  /* gap: 0.4rem; */
+  grid-template-areas:
+    "tab-container-left canvas-container tab-container-rite"
+    "frame-handler frame-handler frame-handler"
+    "frame-container frame-container logger";
+  grid-template-columns: 17% auto 17%;
+  grid-template-rows: calc(100vh - 2em - 10em - var(--commands-bar-height)) 2em 10em;
+  /* grid-template-areas: 
+  'canvas-container tab-container-rite'
+  'frame-handler frame-handler'
+  'frame-container logger'
+  ;
+  grid-template-columns: auto 15em;
+  grid-template-rows: auto 2em 10em; */
+
+  /* height: 100%; */
+  user-select: none;
+}
+
+/* #right-tab-container ,#left-tab-container {
+  min-width: 20em;
+} */
+
+#left-tab-container {
+  grid-area: tab-container-left;
+}
+
+#canvasBox {
+  width: 100%;
+  height: 100%;
+  grid-area: canvas-container;
+  cursor: url("assets/imgs/cursor2.png") 9.5 9.5, auto;
+}
+
+#right-tab-container {
+  grid-area: tab-container-rite;
+}
+
+#lower-tab-container {
+  /* width: 100%;
+  display: flex;
+  gap: 1rem;
+  padding: 0 1rem;
+  /* margin: 0 1rem; * /
+  align-items: center;
+  font-size: 1.3rem; */
+  grid-area: frame-container;
+  /* overflow-x: auto;
+  background-color: var(--frameController); */
+}
+
+#framesContainer > .frame,
+#addFrame {
+  height: 100%;
+  display: flex;
+  /* text-align: center; */
+  justify-content: center;
+  /* border: 10em; */
+  /* padding: 0 5em; */
+  /* width: 5rem; */
+  aspect-ratio: 1;
+  max-height: 5rem;
+  /* border: 1px solid white; */
+  cursor: pointer;
+  border-radius: 100%;
+}
+#framesContainer > .frame {
+  align-items: flex-end;
+  justify-content: center;
+  background-color: rgb(216, 216, 216);
+  color: black;
+}
+
+#addFrame {
+  /* align-items: center; */
+  line-height: 90%;
+  /* font-weight: 900; */
+  font-size: 4rem;
+  /* border-width: px; */
+  color: rgb(184, 184, 184);
+  border: 5px solid currentColor;
+}
+
+#addFrame:hover {
+  color: rgb(250, 250, 250);
+}
+
+#frames-control {
+  display: flex;
+  gap: 1em;
+  grid-area: frame-handler;
+  align-items: center;
+  padding: 0 1rem;
+  background-color: var(--commandsBar);
+}
+
+#consoleOutLog {
+  overflow: auto;
+  /* width: 15rem; */
+  padding: 0.2rem;
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  font-weight: 900;
+  grid-area: logger;
+  /* max-height: 100%; */
+}
+
+canvas {
+  /* width: 100%; */
+  display: block;
+  /* height: 100%; */
+}
+
+.tab-container {
+  background-color: #666666;
+  /* display: flexbox; */
+  /* height: calc(100% - 30px); */
+  /* height: min-content; */
+  height: 100%;
+  /* overflow-y: auto; */
+}
+
+.tab-container > .tab-value {
+  /* position: relative; */
+  overflow-y: auto;
+  background-color: #252525;
+  height: 100%;
+  /* border-radius: 0.5rem 0.5rem 0 0; */
+  /* max-height: 100%; */
+  max-height: calc(100% - 1.875rem);
+  padding: 0.4em;
+  /* max-height: calc(100% - 60px);; */
+  /* height: calc(100% - 30px); */
+  /* max-height: 100%; */
+}
+
+.tab-container > .tab-line {
+  height: 1.875rem;
+  background-color: #666666;
+  /* border-bottom: 1px solid #252525; */
+  display: flex;
+  padding: 0.2em 0em 0 0.5em;
+  list-style: none;
+  align-items: flex-end;
+  margin-block: 0;
+  margin-inline: 0;
+  overflow-x: scroll;
+  /* overflow-y: clip; */
+  /* padding: 0 1em; */
+}
+
+.tab-container > .tab-line::-webkit-scrollbar {
+  height: 0px;
+}
+/* .tab-line > .tab.active::after {
+  content: '𑀄';
+} */
+/* 
+ul {
+  margin-block: 0;
+  margin-inline: 0;
+  padding-inline: 1px;
+  list-style: circle;
+} */
+
+.tab-line > .tab.active > span {
+  /* border: var(--border); */
+  /* border-bottom-color: transparent; */
+  /* border-bottom-color: #252525; */
+  background-color: #252525;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.tab-line > .tab.active {
+  background-color: transparent;
+}
+
+.tab-line > .tab {
+  background-color: #252525;
+  cursor: pointer;
+}
+.tab-line > .tab > span > span {
+  padding: 0.15em 0.4em;
+  border-radius: 0.5rem;
+}
+.tab-line > .tab:not(.active) > span > span:hover {
+  background-color: #0000003d;
+}
+.tab-line > .tab > span {
+  /* margin-bottom: -1px; */
+  /* --border: 1px solid #252525; */
+  /* border: none; */
+  /* border-bottom: var(--border); */
+  /* border-bottom-color: #252525; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15em 0.2em;
+  /* padding: 0.3em 0.6em; */
+  /* height: calc(100% - 1px); */
+  /* border-radius: 0 0 0 0.5rem; */
+  background-color: #666666;
+}
+.i-tab {
+  background-color: #252525;
+}
+.tab.active + .i-tab > span {
+  border-radius: 0 0 0 0.5rem;
+}
+.i-tab > span {
+  display: block;
+  background-color: #666666;
+}
+.i-tab,
+span {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.tab-line > .tab-line-options {
+  height: 90%;
+  min-width: 0.9em;
+}
+
+.tab-line > .tab.active + .tab > span {
+  border-bottom-left-radius: 0.5rem;
+}
+
+.tab-line > .tab:has(+ .tab.active) > span {
+  border-bottom-right-radius: 0.5rem;
+}
+
+.tab-line > .tab-line-options:has(+ .tab.active) {
+  border-bottom-left-radius: 0.5rem;
+  background-color: #252525;
+}
+
+.tab-line > .options > div {
+  padding: 0.1em 0.6em 0 0;
+  border-radius: 0 0 0.5rem;
+  background-color: #666666;
+  height: 100%;
+  width: 100%;
+  /* aspect-ratio: 1 / 3; */
+  /* background-color: red; */
+  display: flex;
+  /* margin: 0.1em 0.6em 0 0; */
+  /* gap: 0.1em; */
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.tab-line > .options > div > div {
+  /* width: 100%; */
+  /* height: 100%; */
+  /* padding: ; */
+  /* height: 1em; */
+  aspect-ratio: 1 / 1;
+  border-radius: 100px;
+  background-color: black;
+}
+
+/* 
+p {
+  margin-block: 0;
+  margin-inline: 0;
+} */
+
+.top.row {
+  /* position: absolute; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--commandsBar);
+  color: var(--text);
+  z-index: 2;
+  gap: 0.5em;
+  height: var(--commands-bar-height);
+  /* font-size: 12px; */
+  font-size: 1.843vh;
+  /* apart from these, the child elements of this element 
+  is based on these and you should notice a change 
+  based on what you set it to */
+
+  /* grid-area: commands; */
+}
+.commands-bar {
+  display: flex;
+  gap: 0.5em;
+}
+
+/* 
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+} */
+
+#app-icon {
+  margin: 0 0.4em;
+}
+
+#app-icon > img {
+  height: 1em;
+}
+
+.commands-bar .command {
+  padding: 0.2em 0.6em;
+  border-radius: 0.533em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  height: 100%;
+  /* margin: 10px 1rem; */
+  /* padding: 0 1em; */
+  cursor: default;
+  user-select: none;
+}
+
+/* div > div{
+} */
+
+.commands-bar > div > .command:hover {
+  background-color: var(--commandsBar-active);
+  /* color: #eeeeee; */
+  /* filter: invert(); */
+}
+
+.option-group:hover > .options {
+  display: block;
+  /* display: inline; */
+  transform: translateX(100%);
+}
+
+.option.option-group > .command {
+  padding: 0.3em 1em;
+  /* display: grid; */
+  width: 100%;
+}
+
+/* .option.option-group > .command::after { */
+/* content: ">"; */
+/* display: inline-flex; */
+/* width: 100%; */
+/* grid-column: 1; */
+/* grid-row: 1; */
+/* margin: auto; */
+/* justify-content: flex-end; */
+/* display: inline; */
+/* width: 100%; */
+/* } */
+
+.option.option-group {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.commands-bar .options {
+  position: fixed;
+  display: none;
+  padding: 0.333em 0;
+  background-color: var(--commandsBar);
+  min-width: 10em;
+  max-height: calc(100% - 80px);
+  overflow: auto;
+  z-index: 2;
+  border-radius: 0.466em;
+  border: 0.0667em solid rgb(175, 175, 175);
+  box-shadow: 0 0 0.4em 0.2em rgba(0, 0, 0, 0.4);
+  /* margin-top: 0.3em; */
+}
+
+.HorizontalRule {
+  margin: 0.5em 0;
+}
+
+.menu.show-options > .options {
+  display: block;
+}
+
+.option {
+  /* co/lor: rgb(0, 0, 0); */
+  background-color: transparent;
+  padding: 0.3em 1em;
+  margin: 0;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: var(--commandsBar-active);
+}
+
+hr {
+  border: none;
+  border-top: 0.0625em solid #ccc;
+}
