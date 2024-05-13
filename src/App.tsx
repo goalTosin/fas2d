@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import LowerRow from "./features/fas2d/components/lower_row";
-import TopRow from "./features/fas2d/components/top_row";
-import "./features/fas2d/styles.css";
-import { AppData } from "./features/fas2d/types";
+import LowerRow from "./features/components/lower_row";
+import TopRow from "./features/components/top_row";
+import "./features/styles.css";
+import { AppData } from "./features/types";
 
 export default function App() {
   const [appData, tweakAppData] = useState<AppData>({
